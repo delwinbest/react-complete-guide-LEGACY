@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBountry from './ErrorBoundry/ErrorBoundry';
 
 class App extends Component {
   state = {
@@ -51,12 +52,12 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person 
+            return <ErrorBountry key={person.id}>
+              <Person 
               click={() => this.deletePersonHandler(index)}
               name={person.name} 
               age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
+              changed={(event) => this.nameChangedHandler(event, person.id)} /></ErrorBountry>
           })}
         </div>
       );
