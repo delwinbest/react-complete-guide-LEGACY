@@ -7,8 +7,13 @@ import withClass from '../../../hoc/withClass';
 
 class Person extends Component {
 //const person = ( props ) => {
+    constructor(props) {
+        super(props);
+        this.inputElementRef = React.createRef();
+    }
+
     componentDidMount() {
-        this.inputElement.focus();
+        this.inputElementRef.current.focus();
     }
 
     render() {
@@ -19,7 +24,8 @@ class Person extends Component {
                 I'm {this.props.name} and I am {this.props.age} years old!</p>
             <p>{this.props.children}</p>
             <input type="text" 
-                ref={(inputEl) => {this.inputElement = inputEl}}
+                ref={this.inputElementRef}
+                //ref={(inputEl) => {this.inputElement = inputEl}}
                 onChange={this.props.changed} 
                 value={this.props.name} />
         </Aux>
