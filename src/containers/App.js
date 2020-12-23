@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import classes from './App.css';
-import Person from './Person/Person';
+import Person from '../components/Persons/Person/Person';
 
 class App extends Component {
   state = {
@@ -70,7 +70,6 @@ class App extends Component {
     if (this.state.persons.length <= 1) {
       assignedClasses.push(classes.bold);
     }
-
 
     return (
       <div className={classes.App}>
