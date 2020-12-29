@@ -12,7 +12,7 @@ const sideDrawer = ( props ) => {
     }
     return (
         <Aux>
-            <Backdrop show={props.open} clicked={props.closed}/>
+            <Backdrop show={props.open} clicked={props.toggleclosed}/>
             <div className={attachedClasses.join(' ')}>
                 <Logo height='11%'/>
                 <nav>
