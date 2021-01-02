@@ -1,0 +1,23 @@
+.Menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.Menu  li {
+    display: inline-block;
+    margin: 20px;
+}
+
+.Menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.Menu a:hover,
+.Menu a:active,
+.Menu a.active {
+    color: #369bee;
+}
