@@ -27,9 +27,11 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props);
         axios.get('https://react-my-burger-93be9-default-rtdb.firebaseio.com/ingredients.json')
             .then(response => {
-                this.setState({ingredients: response.data})
+                this.setState({ingredients: response.data});
+                this.updatePurchaseState(response.data);
             })
             .catch(error => {
                 this.setState({error: true})
@@ -93,30 +95,31 @@ class BurgerBuilder extends Component {
     }
 
     purchasedContinueHandler = () => {
-        //alert('You Continue!');
-        this.setState({loading: true});
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Delwin Best',
-                address: {
-                    street: 'P. Minor',
-                    zipCode: '140-0002',
-                    country: 'Japan'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMEthod: 'Express'
-        }
-        axios.post('/orders.json', order)
-            .then(respone => {
-                this.setState({loading: false, purchasing: false});
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({loading: false, purchasing: false});
-            });
+        // //alert('You Continue!');
+        // this.setState({loading: true});
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Delwin Best',
+        //         address: {
+        //             street: 'P. Minor',
+        //             zipCode: '140-0002',
+        //             country: 'Japan'
+        //         },
+        //         email: 'test@test.com'
+        //     },
+        //     deliveryMEthod: 'Express'
+        // }
+        // axios.post('/orders.json', order)
+        //     .then(respone => {
+        //         this.setState({loading: false, purchasing: false});
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //         this.setState({loading: false, purchasing: false});
+        //     });
+        this.props.history.push("/checkout");
     }
 
     render () {
