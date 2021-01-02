@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, NavLink, Route } from 'react-router-dom';
+import { BrowserRouter, NavLink, Redirect, Route } from 'react-router-dom';
 
 import './App.css';
 import Courses from './containers/Courses/Courses';
-import Course from './containers/Course/Course';
 import Users from './containers/Users/Users';
 
 class App extends Component {
@@ -17,19 +16,20 @@ class App extends Component {
             <li><strike>Make the courses in "Courses" clickable by adding a link and load the "Course" component in the place of "Courses" (without passing any data for now)</strike></li>
             <li><strike>Pass the course ID to the "Course" page and output it there</strike></li>
             <li><strike>Pass the course title to the "Course" page - pass it as a param or score bonus points by passing it as query params (you need to manually parse them though!)</strike></li>
-            <li>Load the "Course" component as a nested component of "Courses"</li>
+            <li><strike>Load the "Course" component as a nested component of "Courses"</strike></li>
             <li>Add a 404 error page and render it for any unknown routes</li>
             <li>Redirect requests to /all-courses to /courses (=> Your "Courses" page)</li>
           </ol>
           <nav className="Menu">
             <ul>
               <li><NavLink exact to ="/users">Users</NavLink></li>
-              <li><NavLink exact to ="/courses">Courses</NavLink></li>
+              <li><NavLink to ="/courses">Courses</NavLink></li>
             </ul>
           </nav>
+          <Redirect from="/all-courses" to="/courses"/>
           <Route path='/users' exact component={Users} />
-          <Route path='/courses/course/:id' exact component={Course} />
-          <Route path='/courses' exact component={Courses} />
+          {/* <Route path='/courses/course/:courseId' exact component={Course} /> */}
+          <Route path='/courses' component={Courses} />
         </div>
       </BrowserRouter>
     );
