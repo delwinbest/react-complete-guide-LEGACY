@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, NavLink, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Courses from './containers/Courses/Courses';
@@ -17,8 +17,8 @@ class App extends Component {
             <li><strike>Pass the course ID to the "Course" page and output it there</strike></li>
             <li><strike>Pass the course title to the "Course" page - pass it as a param or score bonus points by passing it as query params (you need to manually parse them though!)</strike></li>
             <li><strike>Load the "Course" component as a nested component of "Courses"</strike></li>
-            <li>Add a 404 error page and render it for any unknown routes</li>
-            <li>Redirect requests to /all-courses to /courses (=> Your "Courses" page)</li>
+            <li><strike>Add a 404 error page and render it for any unknown routes</strike></li>
+            <li><strike>Redirect requests to /all-courses to /courses (=> Your "Courses" page)</strike></li>
           </ol>
           <nav className="Menu">
             <ul>
@@ -26,10 +26,13 @@ class App extends Component {
               <li><NavLink to ="/courses">Courses</NavLink></li>
             </ul>
           </nav>
-          <Redirect from="/all-courses" to="/courses"/>
-          <Route path='/users' exact component={Users} />
-          {/* <Route path='/courses/course/:courseId' exact component={Course} /> */}
-          <Route path='/courses' component={Courses} />
+          <Switch>
+            <Route path='/users' component={Users} />
+            {/* <Route path='/courses/course/:courseId' exact component={Course} /> */}
+            <Route path='/courses' component={Courses} />
+            <Redirect exact from="/all-courses" to="/courses"/>
+            <Route render={() => <h1>Not Found</h1>}/>
+          </Switch>
         </div>
       </BrowserRouter>
     );
