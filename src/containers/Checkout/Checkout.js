@@ -14,7 +14,7 @@ class Checkout extends Component {
 
 
     checkoutContinueHandler = () => {
-        this.props.history.replace('/checkout/collect-data');
+        this.props.history.replace('/checkout/contact-data');
     }
 
     componentDidMount () {
