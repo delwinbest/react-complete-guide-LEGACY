@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import classes from './Checkout.module.scss';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import { Route } from 'react-router-dom';
+import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
     state = {
@@ -16,7 +18,8 @@ class Checkout extends Component {
     }
 
     componentDidMount () {
-        console.log(this.props);
+        console.log('[Checkout.js] componentDidMount')
+        //console.log(this.props);
         //console.log(this.props.location.state.ingredients)
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
@@ -34,6 +37,9 @@ class Checkout extends Component {
                     ingredients={this.state.ingredients} 
                     checkoutCancelled={this.checkoutCancelledHandler} 
                     checkoutContinued={this.checkoutContinueHandler}/>
+                <Route 
+                    path={this.props.match.path + '/contact-data'} 
+                    component={ContactData} />
             </div>
         )
     }
