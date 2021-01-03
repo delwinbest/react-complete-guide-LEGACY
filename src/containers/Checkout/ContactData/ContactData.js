@@ -52,25 +52,30 @@ class ContactData extends Component {
                 elementType: 'select',
                 elementConfig: {
                     options: [
+                        {value: 'standard', displayValue: 'Standard'},                        
                         {value: 'fastest', displayValue: 'Fastest'}, 
-                        {value: 'standard', displayValue: 'Standard'},
-                        {value: 'slow', displayValue: 'Slow'}
+                        {value: 'cheapest', displayValue: 'Cheapest'}
                     ]
                 },
-                value: ''
+                value: 'standard'
             }
         }, 
         loading: false
     }
 
-    orderHandler = ( event ) => {
+    orderHandler = (event) => {
+        //console.log('[ContactData.js] orderHandler');
         event.preventDefault();
-        console.log(this.props.ingredients);
-        //alert('You Continue!');
         this.setState({loading: true});
+        const formData = {};
+        for(let inputIdentifier in this.state.orderForm) {
+            formData[inputIdentifier] = this.state.orderForm[inputIdentifier].value;
+        }
+        //console.log(formData);
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
+            orderData: formData
             
         }
         axios.post('/orders.json', order)
@@ -85,7 +90,7 @@ class ContactData extends Component {
     }
     componentDidMount () {
         console.log('[ContactData.js] componentDidMount')
-        console.log(this.props);
+        //console.log(this.props);
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -120,7 +125,7 @@ class ContactData extends Component {
                 ))}
                 <Button 
                     btnType="Success"
-                    clicked={this.orderHandler}>CONTINUE</Button>
+                    clicked={this.orderHandler}>ORDER</Button>
             </form>
         );
         if ( this.state.loading ) {

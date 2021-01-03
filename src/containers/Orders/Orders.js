@@ -23,7 +23,7 @@ class Orders extends Component {
                     loading: false,
                     orders: fetchedOrders
                 });
-                console.log(fetchedOrders);
+                //console.log(fetchedOrders);
             })
             .catch(err => {
                 this.setState({

@@ -19,7 +19,7 @@ class Checkout extends Component {
     }
 
     UNSAFE_componentWillMount () {
-        console.log('[Checkout.js] UNSAFE_componentWillMount')
+        //console.log('[Checkout.js] UNSAFE_componentWillMount')
         //console.log(this.props);
         //console.log(this.props.location.state.ingredients)
         const query = new URLSearchParams(this.props.location.search);
