@@ -93,7 +93,11 @@ class ContactData extends Component {
                         {value: 'cheapest', displayValue: 'Cheapest'}
                     ]
                 },
-                value: 'standard'
+                value: 'standard',
+                validation: {
+                    rules: { },
+                    valid: true
+                }
             }
         }, 
         loading: false
@@ -157,7 +161,7 @@ class ContactData extends Component {
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         this.setState({orderForm: updatedOrderForm});
         updatedFormElement.validation.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation.rules);
-        console.log(updatedFormElement);
+        
     }
 
     render () {
@@ -168,6 +172,7 @@ class ContactData extends Component {
                 config: this.state.orderForm[key]
             })
         }
+        console.log(formElementsArray);
         let form = (
             <form>
                 {formElementsArray.map(formElement => (
@@ -176,6 +181,7 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType} 
                         elementConfig={formElement.config.elementConfig} 
                         value={formElement.config.value}
+                        invalid={!formElement.config.validation.valid}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
                 <Button 
