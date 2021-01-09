@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
         case 'STORE_RESULT':
             return {
                 ...state,
-                results: state.counter - action.value
+                results: state.results.concat(state.counter)
             };
         default:
             return state;
