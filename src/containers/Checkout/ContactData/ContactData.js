@@ -153,7 +153,7 @@ class ContactData extends Component {
             });
     }
     componentDidMount () {
-        console.log('[ContactData.js] componentDidMount')
+        //console.log('[ContactData.js] componentDidMount')
         //console.log(this.props);
     }
 
@@ -186,7 +186,7 @@ class ContactData extends Component {
                 config: this.state.orderForm[key]
             })
         }
-        console.log(formElementsArray);
+        //console.log(formElementsArray);
         let form = (
             <form>
                 {formElementsArray.map(formElement => (

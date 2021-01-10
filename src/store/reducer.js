@@ -8,13 +8,13 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_INGREDIENTS:
-            console.log(state);
+            //console.log(state);
             return {
                 ...state,
                 ingredients: {...action.ingredients}
             };
         case actionTypes.SET_TOTAL_PRICE:
-            console.log(state);
+            //console.log(state);
             return {
                 ingredients: {...state.ingredients},
                 totalPrice: action.newPrice
