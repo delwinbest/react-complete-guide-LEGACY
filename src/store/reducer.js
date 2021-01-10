@@ -1,15 +1,21 @@
 import * as actionTypes from './actions';
 
 const initialState = {
-    ingredients: {
-        cheese: 1,
-        meat: 1
-    },
+    ingredients: null,
     totalPrice: 4
 }
 
 const reducer = (state = initialState, action) => {
-    return state;
+    switch (action.type) {
+        case actionTypes.SET_INGREDIENTS:
+            console.log(action);
+            return {
+                ...state,
+                ingredients: {...action.ingredients}
+            };
+        default:
+            return state;
+    }
 };
 
 export default reducer;

@@ -34,7 +34,9 @@ class BurgerBuilder extends Component {
         //console.log(this.props);
         axios.get('https://react-my-burger-93be9-default-rtdb.firebaseio.com/ingredients.json')
             .then(response => {
-                this.setState({ingredients: response.data});
+                //this.setState({ingredients: response.data});
+                console.log('[BurgerBuilder.js] Ingredients Retrieved');
+                this.props.onSetIngredients(response.data);
                 this.updatePurchaseState(response.data);
             })
             .catch(error => {
@@ -178,7 +180,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAddIngredient: () => dispatch({type: actionTypes.ADD_INGREDIENT}),
-        onRemoveIngredient: () => dispatch({type: actionTypes.REMOVE_INGREDIENT})
+        onRemoveIngredient: () => dispatch({type: actionTypes.REMOVE_INGREDIENT}),
+        onSetIngredients: (ingredients) => dispatch({type: actionTypes.SET_INGREDIENTS, ingredients: ingredients})
     };
 };
 
