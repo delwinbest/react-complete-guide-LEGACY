@@ -54,10 +54,12 @@ class BurgerBuilder extends Component {
         const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice = this.props.totalPrice;
         const newPrice = oldPrice + priceAddition;
-        this.setState({
-            ingredients: updatedIngredients,
-            totalPrice: newPrice
-        });
+        // this.setState({
+        //     ingredients: updatedIngredients,
+        //     totalPrice: newPrice
+        // });
+        this.props.onSetIngredients(updatedIngredients);
+        this.props.onSetPrice(newPrice);
         this.updatePurchaseState(updatedIngredients);
     }
 
@@ -179,9 +181,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddIngredient: () => dispatch({type: actionTypes.ADD_INGREDIENT}),
-        onRemoveIngredient: () => dispatch({type: actionTypes.REMOVE_INGREDIENT}),
-        onSetIngredients: (ingredients) => dispatch({type: actionTypes.SET_INGREDIENTS, ingredients: ingredients})
+        onSetIngredients: (ingredients) => dispatch({type: actionTypes.SET_INGREDIENTS, ingredients: ingredients}),
+        onSetPrice: (price) => dispatch({type: actionTypes.SET_TOTAL_PRICE, newPrice: price})
     };
 };
 
