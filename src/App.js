@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <ol>
-          <li>Turn this app into one which does NOT use local state (in components) but instead uses Redux</li>
+          <li><strike>Turn this app into one which does NOT use local state (in components) but instead uses Redux</strike></li>
         </ol>
         <Persons />
       </div>

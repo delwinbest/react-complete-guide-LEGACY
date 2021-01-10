@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actionTypes from '../store/actions';
 
 import Person from '../components/Person/Person';
 import AddPerson from '../components/AddPerson/AddPerson';
 
 class Persons extends Component {
-    state = {
-        persons: []
-    }
-
     personAddedHandler = () => {
         const newPerson = {
             id: Math.random(), // not really unique but good enough here!
             name: 'Max',
             age: Math.floor( Math.random() * 40 )
         }
-        this.setState( ( prevState ) => {
-            return { persons: prevState.persons.concat(newPerson)}
-        } );
+        // this.setState( ( prevState ) => {
+        //     return { persons: prevState.persons.concat(newPerson)}
+        // } );
+        this.props.onAddUser(newPerson);
     }
 
     personDeletedHandler = (personId) => {
-        this.setState( ( prevState ) => {
-            return { persons: prevState.persons.filter(person => person.id !== personId)}
-        } );
+        this.props.onDeleteUser(personId);
+        // this.setState( ( prevState ) => {
+        //     return { persons: prevState.persons.filter(person => person.id !== personId)}
+        // } );
+
     }
 
     render () {
@@ -48,5 +48,12 @@ const mapStateToProps = state => {
     };
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddUser: (person) => dispatch({type: actionTypes.ADD_USER, person: person}),
+        onDeleteUser: (id) => dispatch({type: actionTypes.DELETE_USER, personId: id})
+    };
+};
 
-export default connect(mapStateToProps)(Persons);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Persons);

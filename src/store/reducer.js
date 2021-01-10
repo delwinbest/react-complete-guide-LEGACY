@@ -1,21 +1,28 @@
+import * as actionTypes from './actions';
+
+
 const initialState = {
-    persons: [
-        {
-            id: '001', // not really unique but good enough here!
-            name: 'Max',
-            age: '26'
-        },
-        {
-            id: '002', // not really unique but good enough here!
-            name: 'Delwin',
-            age: '26'
-        }
-    ]
+    persons: []
 }
 
 
 const reducer = (state = initialState, action) => {
-    return state;
+    switch (action.type) {
+        case actionTypes.ADD_USER:
+            return {
+                ...state,
+                persons: [
+                    ...state.persons,
+                    action.person
+                ]
+            };
+        case actionTypes.DELETE_USER:
+            // return { persons: prevState.persons.filter(person => person.id !== personId)}
+            const prevState = state;
+            return { persons: prevState.persons.filter(person => person.id !== action.personId)}
+        default:
+            return state;
+    }
 };
 
 export default reducer;
