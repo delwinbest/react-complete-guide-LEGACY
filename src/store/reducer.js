@@ -16,6 +16,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_TOTAL_PRICE:
             //console.log(state);
             return {
+                ...state,
                 ingredients: {...state.ingredients},
                 totalPrice: action.newPrice
             };
