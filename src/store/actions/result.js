@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-
 ////////////////////////////////////////////////////////////////
 
 export const saveResult = (res) => { //synchronous function
@@ -11,9 +10,11 @@ export const saveResult = (res) => { //synchronous function
 }
 
 export const storeResult = (value) => { //async function dispatch sync function
-    return dispatch => {
+    return (dispatch, getState) => {
         setTimeout(()=>{
-            dispatch(saveResult(value));
+            const oldCounter = getState().ctr.counter
+            console.log(oldCounter);
+;            dispatch(saveResult(value));
         }, 2000);
     }
 };
