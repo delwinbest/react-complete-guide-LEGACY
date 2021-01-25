@@ -20,7 +20,7 @@ export const authSuccess = (idToken, localId) => {
 export const authFail = (error) => {
     return {
         type: actionTypes.AUTH_FAIL,
-        error: error
+        error: error.response
     }
 }
 
@@ -32,19 +32,16 @@ export const auth = (email, password, isSignup) => {
             password: password,
             returnSecureToken: true
         }
-        console.log(authData);
         let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
         if (!isSignup) {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
         }
         axios.post(url+credentials.FIREBASE_WEB_KEY, authData)
             .then(response => {
-                console.log(response);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
             })
-            .catch(err => {
-                console.log(err);
-                dispatch(authFail(err));
+            .catch(error => {
+                dispatch(authFail(error));
             })
     }
 }
