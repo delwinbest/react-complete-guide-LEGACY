@@ -9,11 +9,12 @@ export const authStart = () => {
     }
 }
 
-export const authSuccess = (idToken, localId) => {
+export const authSuccess = (idToken, localId, response) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: idToken,
-        userId: localId
+        userId: localId,
+        response: response
     }
 }
 
@@ -38,7 +39,7 @@ export const auth = (email, password, isSignup) => {
         }
         axios.post(url+credentials.FIREBASE_WEB_KEY, authData)
             .then(response => {
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
+                dispatch(authSuccess(response.data.idToken, response.data.localId, response));
             })
             .catch(error => {
                 dispatch(authFail(error));
