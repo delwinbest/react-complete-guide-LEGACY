@@ -4,7 +4,7 @@ import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import classes from './Auth.module.scss';
 import * as actions from '../../store/actions/index';
-
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Auth extends Component {
     state = {
@@ -38,7 +38,6 @@ class Auth extends Component {
                 touched: false
             }
         },
-        isSignup: true
     }
 
     checkValidity(value, rules) {
@@ -124,6 +123,9 @@ class Auth extends Component {
             </form>
         );
 
+        if (this.props.loading) {
+            form = (<Spinner />)
+        }
         return (
             <div className={classes.Auth}>
                 {form}
@@ -139,4 +141,10 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+const mapStatetoProps = state => {
+    return {
+        loading: state.auth.loading
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(Auth);
