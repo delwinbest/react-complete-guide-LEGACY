@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import * as credentials from '../../credentials';
 
 
 export const authStart = () => {
@@ -22,7 +23,7 @@ export const authFail = (error) => {
     }
 }
 
-export const auth = (email, password) => {
+export const auth = (email, password, isSignup) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
@@ -31,12 +32,16 @@ export const auth = (email, password) => {
             returnSecureToken: true
         }
         console.log(authData);
-        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=KEY', authData)
+        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
+        if (!isSignup) {
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
+        }
+        axios.post(url+credentials.FIREBASE_WEB_KEY, authData)
             .then(response => {
                 console.log(response);
                 dispatch(authSuccess(response.data));
             })
-            .catch( err => {
+            .catch(err => {
                 console.log(err);
                 dispatch(authFail());
             })
