@@ -96,7 +96,6 @@ class Auth extends Component {
                 isSignup: !prevState.isSignup
             }
         })
-        console.log(this.state.isSignup);
     }
 
     render() {
@@ -121,7 +120,7 @@ class Auth extends Component {
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} 
                          />
                 ))}
-                <Button btnType="Success">Sign Up</Button>
+                <Button btnType="Success">Sign {this.state.isSignup ? 'UP' : 'IN'}</Button>
             </form>
         );
 
