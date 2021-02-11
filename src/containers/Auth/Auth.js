@@ -126,8 +126,16 @@ class Auth extends Component {
         if (this.props.loading) {
             form = (<Spinner />)
         }
+
+        let errorMessage = null;
+        if(this.props.error) {
+            errorMessage=(
+                <p>{this.props.error.message}</p>
+            )
+        }
         return (
             <div className={classes.Auth}>
+                {errorMessage}
                 {form}
                 <Button btnType="Success" clicked={this.switchAuthModeHandler}>Switch to SIGN-{this.state.isSignup ? 'IN' : 'UP'}</Button>
             </div>
@@ -143,7 +151,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStatetoProps = state => {
     return {
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        error: state.auth.error
     }
 }
 
