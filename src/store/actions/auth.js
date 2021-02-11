@@ -60,6 +60,9 @@ export const auth = (email, password, isSignup) => {
         axios.post(url+credentials.FIREBASE_WEB_KEY, authData)
             .then(response => {
                 // console.log(response);
+                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+                localStorage.setItem('token', response.data.idToken )
+                localStorage.setItem('expirationDate', expirationDate )
                 dispatch(authSuccess(response.data.idToken, response.data.localId, response));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
