@@ -34,7 +34,7 @@ export const checkAuthTimeout = (expirationTime) => {
     return dispatch => {
         setTimeout(() => {
             dispatch(logout()); 
-        }, expirationTime);
+        }, expirationTime*1000); //ms to s
     }
 }
 
@@ -52,6 +52,7 @@ export const auth = (email, password, isSignup) => {
         }
         axios.post(url+credentials.FIREBASE_WEB_KEY, authData)
             .then(response => {
+                // console.log(response);
                 dispatch(authSuccess(response.data.idToken, response.data.localId, response));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
