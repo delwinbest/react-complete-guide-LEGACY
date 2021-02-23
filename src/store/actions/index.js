@@ -11,7 +11,9 @@ export {
     purchaseBurgerSuccess,
     purchaseBurgerFail,
     purchaseInit,
-    fetchOrders
+    fetchOrders,
+    fetchOrdersSuccess,
+    fetchOrdersFail
 } from './order';
 export {
     auth,
