@@ -25,7 +25,7 @@ export const purchaseBurgerStart = () => {
 export const purchaseBurger = (token, orderData) => {
     return {
         type: actionTypes.PURCHASE_BURGER,
-        toke: token,
+        token: token,
         orderData: orderData
     }
 }
