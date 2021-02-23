@@ -24,16 +24,27 @@ export const authFail = (error) => {
     }
 }
 
+export const logoutSucceed = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
+
 export const logout = () => {
     return {
         type: actionTypes.AUTH_INITIATE_LOGOUT
     }
 }
+
 export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logout()); 
-        }, expirationTime*1000); //ms to s
+    // return dispatch => {
+    //     setTimeout(() => {
+    //         dispatch(logout()); 
+    //     }, expirationTime*1000); //ms to s
+    // }
+    return {
+        type: actionTypes.AUTH_CHECK_TIMEOUT,
+        expirationTime: expirationTime
     }
 }
 
