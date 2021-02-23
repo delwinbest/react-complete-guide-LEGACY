@@ -23,15 +23,10 @@ export const purchaseBurgerStart = () => {
 };
 
 export const purchaseBurger = (token, orderData) => {
-    return dispatch => {
-        dispatch(purchaseBurgerStart());
-        axios.post( '/orders.json?auth=' + token, orderData )
-        .then( response => {
-            dispatch(purchaseBurgerSuccess(response.data.name, orderData));
-        } )
-        .catch( error => {
-            dispatch(purchaseBurgerFail(error));
-        } );
+    return {
+        type: actionTypes.PURCHASE_BURGER,
+        toke: token,
+        orderData: orderData
     }
 }
 
