@@ -9,7 +9,7 @@ const Search = React.memo(props => {
   const inputRef = useRef();
 
   useEffect(() => {
-    setTimeout(()=> {
+    const timer = setTimeout(()=> {
       if(enteredFilter === inputRef.current.value) {
         const query = enteredFilter.length === 0 
           ? '' 
@@ -28,9 +28,11 @@ const Search = React.memo(props => {
           onLoadIngredients(loadedIngredients);
         });
       }
-    },500)}, [enteredFilter, onLoadIngredients, inputRef]); //no array is like component did update, with array, its like component did mount
-    
-
+    },500);
+    return () => { //cleanup function
+      clearTimeout(timer);
+    };
+  }, [enteredFilter, onLoadIngredients, inputRef]); //no array is like component did update, with array, its like component did mount
     
   return (
     <section className="search">
