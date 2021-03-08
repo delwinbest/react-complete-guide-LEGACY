@@ -2,11 +2,13 @@ import React, { useState, useCallback } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
+import ErrorModal from '../UI/ErrorModal';
 import Search from './Search';
 
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   // useEffect(() => {
   //   fetch('https://react-hooks-project-1acba-default-rtdb.firebaseio.com/ingredients.json').then(response => {
@@ -61,11 +63,20 @@ function Ingredients() {
     }).then(response => {
       setIsLoading(false);
       setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId))
+    }).catch(error => {
+      setError(error.message)
     });
   };
 
+  const clearError = () => {
+    setError(null);
+    setIsLoading(false);
+  }
+
   return (
     <div className="App">
+      {error && <ErrorModal onClose={clearError} >{error}</ErrorModal>}
+
       <IngredientForm onAddIngredient={addIngredientHandler} loading={isLoading}/>
 
       <section>
