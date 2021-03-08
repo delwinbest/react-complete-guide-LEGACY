@@ -65,12 +65,12 @@ function Ingredients() {
       setUserIngredients(prevIngredients => prevIngredients.filter(ingredient => ingredient.id !== ingredientId))
     }).catch(error => {
       setError(error.message)
+      setIsLoading(false);
     });
   };
 
   const clearError = () => {
     setError(null);
-    setIsLoading(false);
   }
 
   return (
