@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useMemo } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from './IngredientList';
@@ -63,7 +63,7 @@ const Ingredients = () => {
   //   console.log('useEffect loaded with userIngredients')
   // }, [userIngredients])
 
-  const addIngredientHandler = ingredient => {
+  const addIngredientHandler = useCallback(ingredient => {
     //setIsLoading(true);
     dispatchHttp({type: 'SEND'});
     fetch('https://react-hooks-project-1acba-default-rtdb.firebaseio.com/ingredients.json', {
@@ -80,14 +80,14 @@ const Ingredients = () => {
       // ])
       dispatch( { type: 'ADD', ingredient: {id: responseData.name, ...ingredient} } );
     });
-  };
+  },[]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
     //setUserIngredients(filteredIngredients);
     dispatch( { type: 'SET', ingredients: filteredIngredients } );
   },[]);
 
-  const removeIngredientHandler = (ingredientId) => {
+  const removeIngredientHandler = useCallback((ingredientId) => {
     //setIsLoading(true);
     dispatchHttp({type: 'SEND'});
     fetch(`https://react-hooks-project-1acba-default-rtdb.firebaseio.com/ingredients/${ingredientId}`, {
@@ -108,12 +108,18 @@ const Ingredients = () => {
       // setIsLoading(false); 
       dispatchHttp({type: 'ERROR', errorMessage: error.message });
     });
-  };
+  }, []);
 
   const clearError = () => {
     //setError(null);
     dispatchHttp({type: 'CLEAR'});
   }
+
+  const ingredientList = useMemo(() => {
+    return (
+      <IngredientList ingredients={userIngredients}  onRemoveItem={removeIngredientHandler}/>
+    )
+  }, [userIngredients, removeIngredientHandler]);
 
   return (
     <div className="App">
@@ -123,7 +129,7 @@ const Ingredients = () => {
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler}/>
-        <IngredientList ingredients={userIngredients}  onRemoveItem={removeIngredientHandler}/>
+        {ingredientList}
       </section>
     </div>
   );
